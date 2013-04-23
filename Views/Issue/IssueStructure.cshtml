@@ -1,0 +1,86 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@using DigitalPublishingPlatform.Models
+@model DigitalPublishingPlatform.ViewModels.CategoriesArticlesViewModel
+@{
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();   
+}
+@{ Layout.Title = T("Issue Structure").ToString(); }
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <div class="breadCrumbs">
+            <p>
+                @foreach (Navigation navigation in BreadCrumbs.GetNavigationHierarchy(Request.Url.PathAndQuery, WorkContext))
+                {
+                    if(!navigation.Path.IsNullOrEmpty()) {
+                        @Html.Link(navigation.Name, navigation.Path) <text>&#62;</text>    
+                    }
+                    else {
+                        @Html.Label(navigation.Name) <text>&#62;</text>    
+                    }
+                }
+                @T("Issue Structure")
+            </p>
+        </div>
+
+        <p>
+            <label>
+                Main Article: 
+                @Html.DropDownListFor(m => m.MainArticleId, Model.Articles)
+            </label>
+        </p>   
+            
+        <table class="issue-front-table items ">
+            <thead>
+                <tr>
+                    <th rowspan="2">Category</th>
+                    <th colspan="4">Article Display Order</th>
+                </tr>
+                <tr>                    
+                    <th>
+                        1st
+                    </th>
+                    <th>
+                        2nd
+                    </th>
+                    <th>
+                        3rd
+                    </th>
+                    <th>
+                        4th
+                    </th>
+                </tr>                
+            </thead>
+            <tbody>
+                @{
+                    for (var i = 0; i < Model.CategoryArticleList.Count; i++) {
+                        <tr>                        
+                            <td>
+                                @Html.HiddenFor(m => m.CategoryArticleList[i].CategoryArticleId)
+                                @Html.HiddenFor(m => m.CategoryArticleList[i].CategoryId)
+                                @Model.CategoryArticleList[i].Name
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.CategoryArticleList[i].FistArticleId, new SelectList(Model.Articles, "Value", "Text", Model.CategoryArticleList[i].FistArticleId))
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.CategoryArticleList[i].SecondArticleId, new SelectList(Model.Articles, "Value", "Text", Model.CategoryArticleList[i].SecondArticleId))
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.CategoryArticleList[i].ThirdArticleId, new SelectList(Model.Articles, "Value", "Text", Model.CategoryArticleList[i].ThirdArticleId))
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.CategoryArticleList[i].FourthArticleId,new SelectList(Model.Articles, "Value", "Text", Model.CategoryArticleList[i].FourthArticleId))
+                            </td>
+                    
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <br/>
+        <div> 
+            <button class="primaryAction" type="submit" name="submit.Save" value="submit.Save">Save</button>
+        </div>
+    </fieldset>
+}

@@ -1,0 +1,59 @@
+﻿@model DigitalPublishingPlatform.ViewModels.VideoPlayerViewModel
+<h2 class="video-title" title="@Model.Title">@Model.Title</h2>
+@if (!Model.IsSmoothStreaming) {
+    <video width="@Model.Width" height="@Model.Height" id="video-player" controls="controls" preload="true" autoplay="true" >
+        <source src="@Model.Src" type="@Model.Type" />
+    </video>
+}else {    
+    @*var smoothStreamingPluginPath = Url.Content("~/Modules/DigitalPublishingPlatform/content/OsmfPlugin/MSAdaptiveStreamingPlugin-v1.0.1-osmf2.0.swf");
+    var strobeMediaPlayback = Url.Content("~/Modules/DigitalPublishingPlatform/content/OsmfPlugin/StrobeMediaPlayback.swf");
+    //var smoothStreamingPluginPath = "http://download.microsoft.com/download/3/1/B/31B63D97-574E-4A8D-BF8D-170744181724/MSAdaptiveStreamingPlugin-v1.0.1-osmf2.0.swf";//Url.Content("~/Modules/DigitalPublishingPlatform/content/OsmfPlugin/MSAdaptiveStreamingPlugin-v1.0.1-osmf2.0.swf");    
+    <object width="@Model.Width" height ="@Model.Height">  
+        <param name ="movie" value="@strobeMediaPlayback" />
+        <param name ="flashvars" value="src=@Model.Src&autoPlay=true&highQualityThreshold=1080&plugin_AdaptiveStreamingPlugin=@smoothStreamingPluginPath&AdaptiveStreamingPlugin_retryLive=true&AdaptiveStreamingPlugin_retryInterval=10"/>
+        <param name ="allowFullScreen" value="true"/>
+        <param name ="allowscriptaccess" value="always"/>
+        <param name ="wmode" value="direct" />
+        <embed src="@strobeMediaPlayback" 
+               type="application/x-shockwave-flash" 
+               allowscriptaccess="always" 
+               allowfullscreen="true" 
+               wmode="direct" 
+               width="@Model.Width" 
+               height="@Model.Height" 
+               flashvars="src=@Model.Src&autoPlay=true&highQualityThreshold=1080&plugin_AdaptiveStreamingPlugin=@smoothStreamingPluginPath&AdaptiveStreamingPlugin_retryLive=true&AdaptiveStreamingPlugin_retryInterval=10" />
+    </object>*@    
+    
+    var smoothStreamingPlayer = Url.Content("~/Modules/DigitalPublishingPlatform/content/SmoothStreamingPlayer/SmoothStreamingPlayer.xap");    
+    <div id="silverlightControlHost">
+        <object data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="@Model.Width" height ="@Model.Height">
+		  <param name="source" value="@smoothStreamingPlayer"/>		  
+		  <param name="background" value="white" />
+		  <param name="minRuntimeVersion" value="4.0.50401.0" />
+		  <param name="autoUpgrade" value="true" />
+          <param name="InitParams" value="mediaurl=@Model.Src" />
+		  <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=4.0.50401.0" style="text-decoration:none">
+ 			  <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight" style="border-style:none"/>
+		  </a>
+	    </object><iframe id="_sl_historyFrame" style="visibility:hidden;height:0px;width:0px;border:0px"></iframe></div>
+}
+@if (!String.IsNullOrEmpty(Model.AdditionalInfo)) {
+    <h5>Encode Preset: @Model.AdditionalInfo</h5><br/>
+}
+
+<div id="copy-container" style="width: @(Model.Width)px">
+    <div class="text-copied">Copied</div>
+    <div class="url-container">
+        
+        <input type="text" id="url-to-copy" readonly="readonly" value="@Model.Src"/>
+    </div>
+    <div class="button-container">
+        <a href="#" data-clipboard-target="url-to-copy" title="click to copy url">&nbsp;</a>
+    </div>
+    <div class="clearBoth"></div>
+</div>
+<span id="no-automatic-copy">
+    your web browser does not allow automatic copying of text, please copy it manually
+</span>
+
+

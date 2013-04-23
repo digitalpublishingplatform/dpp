@@ -1,0 +1,27 @@
+﻿@model DigitalPublishingPlatform.Models.PublicationFrameworkSettingPart 
+<fieldset>
+    <legend>@T("Media Service access keys")</legend> 
+    <p>
+        @Html.LabelFor(m => m.MediaServiceAccount, @T("Media service account name"))
+        @Html.TextBoxFor(m => m.MediaServiceAccount, new {@class="textMedium"})
+        @Html.ValidationMessageFor(m => m.MediaServiceAccount, "*")
+    </p>
+    <p>
+        @Html.LabelFor(m => m.MediaServiceKey, @T("Primary Media Service access key"))
+        @Html.TextBoxFor(m => m.MediaServiceKey, new {@class="textMedium"})
+        @Html.ValidationMessageFor(m => m.MediaServiceKey, "*")
+    </p>
+</fieldset> 
+<fieldset>
+    <legend>@T("Storage access keys")</legend> 
+    <p>
+        @Html.LabelFor(m => m.BlobStorageAccount, @T("Storage account name"))
+        @Html.TextBoxFor(m => m.BlobStorageAccount, new {@class="textMedium"})
+        @Html.ValidationMessageFor(m => m.BlobStorageAccount, "*")
+    </p>
+    <p>
+        @Html.LabelFor(m => m.BlobStorageKey, @T("Primary access key"))
+        @Html.TextBoxFor(m => m.BlobStorageKey, new {@class="textMedium"})
+        @Html.ValidationMessageFor(m => m.BlobStorageKey, "*")
+    </p>
+</fieldset> 

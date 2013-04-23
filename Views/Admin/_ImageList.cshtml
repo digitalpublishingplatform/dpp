@@ -1,0 +1,22 @@
+﻿@model Tuple<string, List<string>, int>
+
+<h2 class="video-title" title="@Model.Item1">@Model.Item1</h2>
+<div class="image-list-container">
+    <ul class="image-list">
+        @foreach (var image in Model.Item2) {
+            <li>
+                <a href="@Url.Action("SetDefaultThumbnail", new {id = Model.Item3, thumbnailUrl = image})">
+                    <span class="overlay"> click to add as default thumbnail </span>                                                                
+                    <img src="@image" />                    
+                </a>
+            </li>
+        }
+    </ul>
+    <div class="scroll-button left-button">
+        
+    </div>
+    <div class="scroll-button right-button">
+        
+    </div>
+</div>
+<h5>Encoded Preset: Video Thumbnails</h5>

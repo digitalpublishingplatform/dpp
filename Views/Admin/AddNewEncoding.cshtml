@@ -1,0 +1,46 @@
+﻿@model DigitalPublishingPlatform.ViewModels.EncodingViewModel
+@{
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+}
+@{ Layout.Title = T("Add new encoding").ToString(); }
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+    <h2>@Model.LongTitle</h2>
+    <p>        
+       (Please select preset formats to encode uploaded media)        
+    </p>
+    <fieldset class="formats">
+        <div class="format-container">
+            <h2 class="thumbnail">Thumbnail</h2>                        
+                <p>
+                    @Html.Label(Model.ThumbnailEncoding.ShortDescription, new {@for = "SelectedFormats" + Model.ThumbnailEncoding.Id, title = Model.ThumbnailEncoding.Description, @class=(Model.ThumbnailEncoding.Disabled?"disabled":null)})
+                    <input type="checkbox" name="SelectedFormats" id="@("SelectedFormats" + Model.ThumbnailEncoding.Id)" value = "@Model.ThumbnailEncoding.Id"/>                               
+                </p>                
+        </div>    
+        <div class="format-container">
+            <h2 class="windows8">Windows 8</h2>                 
+            @foreach (var format in Model.Windows8Encoding) {
+                <p>
+                    @Html.Label(format.ShortDescription, new {@for = "SelectedFormats" + format.Id, title = format.Description, @class=(format.Disabled?"disabled":null)})
+                    <input type="checkbox" name="SelectedFormats" id="@("SelectedFormats" + format.Id)" value = "@format.Id"/>                               
+                </p>                
+            }    
+        </div>    
+        <div class="format-container">
+            <h2 class="html5">HTML5</h2>
+            
+            @foreach (var format in Model.Html5Encoding) {
+                <p>
+                    @Html.Label(format.ShortDescription, new {@for = "SelectedFormats" + format.Id, title = format.Description, @class=(format.Disabled?"disabled":null)})
+                    <input type="checkbox" name="SelectedFormats" id="@("SelectedFormats" + format.Id)" value = "@format.Id"/>                               
+                </p>                
+            }    
+        </div>    
+    </fieldset>
+    <fieldset>
+        <button class="primaryAction" type="submit">@T("Save")</button>
+        @Html.ActionLink("Back", "Index", null, new { Class = "button"})
+    </fieldset>
+    
+}

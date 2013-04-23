@@ -1,0 +1,9 @@
+﻿@model DigitalPublishingPlatform.Models.CategoryPart
+<fieldset>
+    <p>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+        @Html.HiddenFor(m => m.Position)
+        @Html.HiddenFor(m => m.PublicationId)
+    </p>        
+</fieldset>

@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Help";
+}
+
+<h2>Publication</h2>
+
+<table class="help-page-table">
+    <thead>
+        <tr><th>API</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="api-name">POST Api/Publication/All</td>
+            <td class="api-documentation">
+                <p>Gets all published publications </p>
+                <p>returns: publications</p>
+            </td>
+        </tr>        
+        <tr>
+            <td class="api-name">POST Api/Publication/AllWithIssues</td>
+            <td class="api-documentation">
+                <p>Gets all published publications with corresponding published issues</p>
+                <p>returns: publications with issues</p>
+            </td>
+        </tr>   
+        <tr>
+            <td class="api-name">POST Api/Publication/Articles/{id}</td>
+            <td class="api-documentation">
+                <p>Gets all articles for issue</p>
+                <p>parameters:</p>
+                <ul>
+                    <li>id: issue id</li>
+                </ul>                
+                <p>returns: articles</p>
+            </td>
+        </tr>  
+        <tr>
+            <td class="api-name">POST Api/Publication/CategoriesByIssueId/{id}</td>
+            <td class="api-documentation">
+                <p> Get all published categories for an issue</p>
+                <p>parameters:</p>
+                <ul>
+                    <li>id: issue id</li>
+                </ul>                
+                <p>returns: list of category names</p>
+            </td>
+        </tr>  
+        <tr>
+            <td class="api-name">POST Api/Publication/ArticlesByCategoryNameAndIssueId/{id}?categoryName={categoryName}</td>
+            <td class="api-documentation">
+                <p> Get all published categories for an issue</p>
+                <p>parameters:</p>
+                <ul>
+                    <li>id: issue id</li>
+                    <li>categoryName: category name</li>
+                </ul>                
+                <p>returns: articles</p>
+            </td>
+        </tr>     
+        <tr>
+            <td class="api-name">POST Api/Publication/CategoryAndArticlesByIssueId/{id}</td>
+            <td class="api-documentation">
+                <p>Gets published categories and articles for an issue </p>
+                <p>parameters:</p>
+                <ul>
+                    <li>id: issue id</li>                    
+                </ul>                
+                <p>returns: list of categories and articles</p>
+            </td>
+        </tr>   
+        <tr>
+            <td class="api-name">POST Api/Publication/IssueFront/{id}</td>
+            <td class="api-documentation">
+                <p>Gets published categories and articles for an issue </p>
+                <p>parameters:</p>
+                <ul>
+                    <li>id: issue id</li>                    
+                </ul>                
+                <p>returns: list of categories and articles</p>
+            </td>
+        </tr>     
+    </tbody>
+</table>

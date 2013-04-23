@@ -1,0 +1,79 @@
+﻿@using DigitalPublishingPlatform.Models
+@model DigitalPublishingPlatform.ViewModels.EncodedListViewModel   
+@{
+    Layout.Title = T("Encoded files").ToString();
+    Style.Require("PublicationFrameworkAdmin.Style.MediaElement").AtHead();
+    Style.Require("jQueryUI_Orchard");
+
+    Script.Require("PublicationFrameworkAdmin.Script.MediaElement").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.JQueryCopyToClipboard");
+    Script.Require("jQueryUI").AtFoot();
+}
+
+<div class="manage">@Html.ActionLink(T("Encode").ToString(), "AddNewEncoding", new { id = Model.MediaItemId }, new { @class = "button primaryAction" })</div>
+<h2>Title: @Model.Title</h2>
+<h2>Source filename: @Model.Filename</h2>
+<br/>
+@if (Model.EncodedMediaList.Any()) {
+    <fieldset>
+        <table class="items">
+            <thead>
+                <tr>                
+                    <th>@T("Encode preset")</th>                                        
+                    <th>@T("Owner")</th>
+                    <th>@T("Created")</th>
+                    <th>@T("Modified")</th>
+                    <th>@T("Status")</th>
+                    <th>@T("Error")</th>                    
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mediaEncoded in Model.EncodedMediaList) {
+                    <tr>                                           
+                        <td>
+                            @if (mediaEncoded.IsFinished) {
+                                if (mediaEncoded.MediaTarget == MediaTarget.Thumbnail) {
+                                    <a href="@Url.Action("ImageList", new {id = mediaEncoded.Id})" class="play-movie" target="_blank">@mediaEncoded.EncodingPreset</a>
+                                }
+                                else {
+                                    if (mediaEncoded.MediaTarget != MediaTarget.Unknown) {
+                                        <a href="@Url.Action("PlayEncoded", new {id = mediaEncoded.Id})" class="play-movie" target="_blank">@mediaEncoded.EncodingPreset</a>                                        
+                                    }
+                                }
+                            }
+                            else {                                
+                                @mediaEncoded.EncodingPreset
+                            }
+                        </td>                        
+                        <td>
+                            @mediaEncoded.Owner
+                        </td>
+                        <td>
+                            @mediaEncoded.CreatedUtc
+                        </td>
+                        <td>
+                            @mediaEncoded.ModifiedUtc
+                        </td>
+                        <td>
+                            @mediaEncoded.Status
+                        </td>
+                        <td>
+                            @mediaEncoded.JobErrorMessage
+                        </td>                                 
+                        <td>                            
+                            @Html.ActionLink(T("Delete").ToString(), "DeleteEncoded", new {id = Model.MediaItemId, encodedId = mediaEncoded.Id})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+       
+    </fieldset>
+     <div id="video-container"></div>
+}
+else {
+    <div class="info message">@T("No media found.")</div>       
+}
+ @Display(Model.Pager)

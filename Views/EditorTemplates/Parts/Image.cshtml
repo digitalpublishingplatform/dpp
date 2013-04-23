@@ -1,0 +1,17 @@
+﻿@model DigitalPublishingPlatform.Models.ImagePart
+@{
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();        
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+}
+<h3>@T("Image")</h3>
+<fieldset>
+    <button id="add-image" class="primaryAction" data-upload-media-folder="@Request.RequestContext.RouteData.Values["controller"].ToString()">Add main image</button> 
+    <div class="ui-helper-clearfix"></div>
+    <div class="image-container" @if (String.IsNullOrEmpty(Model.Url)) {
+                                    <text>style='display: none'</text>
+                                 }>                
+        <img src="@Model.Url" id="img-preview" />
+        <input type="hidden" id="Url" name="@Html.NameFor(m => m.Url)" value="@Model.Url"/>        
+    </div>
+</fieldset>
+<br/>

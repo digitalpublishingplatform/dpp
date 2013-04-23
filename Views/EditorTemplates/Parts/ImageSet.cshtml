@@ -1,0 +1,24 @@
+﻿@model DigitalPublishingPlatform.ViewModels.ImageSetViewModel
+@{
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+}
+<h3>@T("Image Set")</h3>
+<fieldset>
+    <button class="primaryAction" id="add-images"  data-upload-media-folder="ImagesSet/@Request.RequestContext.RouteData.Values["controller"].ToString()">Add new image</button>
+    <div id="article-image-container">
+        <ul>
+            @for (var i = 0; i < Model.Urls.Count(); i++) {
+                <li class="article-image-preview">                    
+                    <input type="hidden" value="@Model.Urls[i]" name="@Html.FieldNameFor(m => m.Urls[i])"/>
+                    <img src="@Html.ValueFor(m => m.Urls[i])" id="img-preview" /> 
+                    <p style="text-align: right">
+                            <a href="#" class="remove">remove</a>                            
+                    </p>                    
+                </li>
+            }        
+        </ul>
+    </div>
+</fieldset>
+<div id="image-container"></div>
+<br/>

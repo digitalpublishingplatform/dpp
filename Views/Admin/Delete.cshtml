@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Delete " + ViewBag.MediaTitle;
+}
+@using (Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <h2>Are you sure you want to delete '@ViewBag.MediaTitle'?</h2> 
+        <div>This action delete all encoded files
+        @if (ViewBag.ArticlesTitle != null && ViewBag.ArticlesTitle.Count > 0) {
+            <text> and this media will be removed from that articles:</text>
+            <ul>
+                @foreach (var articleTitle in ViewBag.ArticlesTitle) {
+                    <li>> @articleTitle</li>
+                }
+            </ul>
+        }
+        else {
+            <text>.</text>
+        }
+            <br/>
+        </div>
+        <button class="primaryAction" type="submit" name="submit.Yes" value="submit.Yes">Yes</button>
+        <button class="primaryAction" type="submit" name="submit.No" value="submit.No">No</button>
+    </fieldset>
+}
+
+

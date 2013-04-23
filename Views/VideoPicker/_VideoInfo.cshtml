@@ -1,0 +1,18 @@
+﻿@model  DigitalPublishingPlatform.ViewModels.EditVideosViewModel
+@{ var i = 0; }
+@foreach (var video in Model.Videos) {
+    <li class="article-video-preview">        
+        <input type="hidden" value="@video.Id" name="Videos.@Html.FieldNameFor(m => m.Ids[i])"/>
+        
+        <a href="@Url.Action("PlayVideo","Admin", new {id = video.Id})" target="_blank" class="play-movie">
+            <span></span>
+            <img src="@(String.IsNullOrEmpty(video.DefaultThumbnailUrl) ? Url.Content("~/Modules/DigitalPublishingPlatform/styles/images/blank.png") : video.DefaultThumbnailUrl)" />
+        </a>
+        <h2>@video.Title</h2>
+        <p style="text-align: right">
+            <a href="#" class="remove">remove</a>                            
+        </p>        
+    </li>
+    
+    i++;
+}

@@ -1,0 +1,18 @@
+﻿@model DigitalPublishingPlatform.ViewModels.VideoPlayerViewModel
+@{
+    ViewBag.Title = "Playing " + @Model.Title;
+      
+    Style.Require("PublicationFrameworkAdmin.Style.MediaElement").AtHead();
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.MediaElement").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.JQueryCopyToClipboard").AtFoot();      
+}
+    @Html.Partial("_VideoPlayer")
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setplayer();
+            setCopyToClipboard();
+        });        
+    </script>}

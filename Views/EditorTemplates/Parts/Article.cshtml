@@ -1,0 +1,19 @@
+﻿@model DigitalPublishingPlatform.Models.ArticlePart
+<fieldset>
+    <p>
+        @Html.LabelFor(m => m.Author)
+        @Html.TextBoxFor(m => m.Author)
+    </p> 
+    <p>
+        <br/>
+        <label>
+            @Html.CheckBoxFor(m => m.MainArticle)Main Article
+        </label>
+        
+        @if(ViewBag.MainArticleId > 0) {
+            <label>
+                Current: @Html.ActionLink((string)@ViewBag.MainArticleTitle, "Edit", "Article", new {id = ViewBag.MainArticleId}, null)
+            </label>
+        }
+    </p>        
+</fieldset>

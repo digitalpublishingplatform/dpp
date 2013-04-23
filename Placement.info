@@ -1,0 +1,15 @@
+﻿<Placement>
+  <Place Parts_MediaItem_Edit="Content:1"/>
+  <Place Parts_Title_Edit="Content:2"/>
+  <Place Parts_Common_Body_Edit ="Content:3"/>
+  <Place Parts_Category_Edit ="Content:4"/>
+  <Place Parts_Common_Owner_Edit="Content:5"/>  
+  <Place Parts_Common_Date_Edit="Content:6"/>     
+  <Place Parts_Image_Edit="Content:7"/>
+  <Place Parts_Videos_Edit="Content:8"/>  
+  <Place Parts_Article_Edit="Content:9"/>
+  <Place Parts_Tags_Edit ="Content:10"/>
+  <Place Parts_Categories_Edit="Content:11"/>
+  <Place Parts_ImageSet_Edit="Content:12"/>
+  <Place Parts_Share_Settings="Content:after"/>
+</Placement>

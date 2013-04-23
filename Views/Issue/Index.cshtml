@@ -1,0 +1,87 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@using DigitalPublishingPlatform.Models
+@model DigitalPublishingPlatform.ViewModels.IssueItemListViewModel          
+@{ Layout.Title = T("Issues").ToString(); }
+
+@using(Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <div class="breadCrumbs">
+            <p>
+                @foreach (Navigation navigation in BreadCrumbs.GetNavigationHierarchy(Request.Url.PathAndQuery, WorkContext))
+                {
+                    if(!navigation.Path.IsNullOrEmpty()) {
+                        @Html.Link(navigation.Name, navigation.Path) <text>&#62;</text>    
+                    }
+                    else {
+                        @Html.Label(navigation.Name) <text>&#62;</text>    
+                    }
+                }
+                @T("Issues")
+            </p>
+        </div>
+
+        <label for="find">
+            Find Issue:                
+        </label>
+        <div style="width: 70%; float: left;">                
+            <input type="text" class="large text" name="find" id="find"/>
+        </div>
+        <div style="float: left;">
+            <button class="primaryAction" type="submit">Find</button>
+        </div>
+        <div class="manage">@Html.ActionLink(T("Add new issue").ToString(), "Create", new { publicationId = Model.PublicationId }, new { @class = "button primaryAction" })</div>
+        <br/>
+        <br/>
+        <br/>
+        @if (Model.IssueItems.Any()) {
+            <table class="items">
+                <thead>
+                    <tr>                
+                        <th class="title-list">@T("Title")</th>   
+                        <th>@T("Created")</th>
+                        <th>@T("Modified")</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var issueItem in Model.IssueItems) {
+                        <tr>                   
+                            <td>
+                                @Html.ActionLink(@issueItem.Title, "Edit", new {id = issueItem.Id})
+                            </td>
+                            <td>
+                                @issueItem.CreatedUtc
+                            </td>           
+                            <td>
+                                @issueItem.ModifiedUtc
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new {publicationId = Model.PublicationId, id = issueItem.Id}) | 
+                                @Html.ActionLink(T("Delete").ToString(), "Delete", new {id = issueItem.Id}) |
+                                @Html.ActionLink("Articles", "Index", "Article", new {issueId = issueItem.Id}, null) |
+                                @Html.ActionLink("Issue Structure", "IssueStructure", new {publicationId = Model.PublicationId, id = issueItem.Id}, null) 
+                                @if (issueItem.Published) {
+                                    <p>
+                                        <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/online.gif" alt="Online" title="The page is currently online" /> Published | 
+                                        @Html.ActionLink("Unpublish", "Unpublish", "Admin", new {id = issueItem.Id, returnUrl = this.ReturnUrl()}, null)
+                                    </p>
+                                }
+                                else {
+                                    <p>
+                                        <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/offline.gif" alt="Online" title="The page is currently online" /> Not Published | 
+                                        @Html.ActionLink("Publish", "Publish", "Admin", new {id = issueItem.Id, returnUrl = this.ReturnUrl()}, null)
+                                    </p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="info message">@T("No issues found.")</div>    
+        }
+    </fieldset>
+}
+ @Display(Model.Pager)

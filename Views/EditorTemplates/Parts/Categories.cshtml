@@ -1,0 +1,33 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@model DigitalPublishingPlatform.ViewModels.EditCategoriesViewModel
+<fieldset>
+    <p>
+        <h3>@T("Categories")</h3>
+        <table>
+            <tbody>
+                @{                
+                    for (var i = 0; i < Model.Categories.Count(); i++) {                 
+                        <tr>
+                            <td>
+                                <label>
+                                                        
+                                    <input type="checkbox"  value="true" name="@Html.FieldNameFor(m => m.Categories[i].Checked)" checked="@(Model.Categories[i].Checked ? "checked" : null)" />
+                                    <input type="hidden" value="@Model.Categories.ToArray()[i].Id" name="@Html.FieldNameFor(m => m.Categories[i].Id)" />
+                                    @Model.Categories.ToArray()[i].Name                                
+                                </label>
+                                <td>
+                                    <select name="@Html.FieldNameFor(m => m.Categories[i].CategoryDisplayOrder)">
+                                    @Html.SelectOption(Model.Categories[i].CategoryDisplayOrder, 0, "No display")
+                                    @for (int j = 0; j < 4; j++) {
+                                        @Html.SelectOption(Model.Categories[i].CategoryDisplayOrder, j + 1, (j + 1).ToOrdinal())    
+                                    }
+                                </select>
+                                </td>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </p>        
+</fieldset>

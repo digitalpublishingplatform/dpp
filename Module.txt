@@ -1,0 +1,7 @@
+﻿Name: Digital Publishing Platform
+AntiForgery: enabled
+Author: Blackfish
+Website: http://orchardproject.net
+Version: 0.6
+OrchardVersion: 1.6
+Description: Module to create magazine publications, using windows azure media services

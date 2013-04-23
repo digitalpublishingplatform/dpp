@@ -1,0 +1,109 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@using DigitalPublishingPlatform.Models
+@model DigitalPublishingPlatform.ViewModels.Category.CategoryItemListViewModel  
+@{
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();            
+    Style.Require("jQueryUI_Orchard");
+    
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+    
+    Script.Require("jQueryUI").AtFoot();
+}        
+@{ Layout.Title = T("Categories").ToString(); }
+
+@using(Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <div class="breadCrumbs">
+            <p>
+                @foreach (Navigation navigation in BreadCrumbs.GetNavigationHierarchy(Request.Url.PathAndQuery, WorkContext))
+                {
+                    if(!navigation.Path.IsNullOrEmpty()) {
+                        @Html.Link(navigation.Name, navigation.Path) <text>&#62;</text>    
+                    }
+                    else {
+                        @Html.Label(navigation.Name) <text>&#62;</text>    
+                    }
+                }
+                @T("Categories")
+            </p>
+        </div>
+
+        <div class="manage">@Html.ActionLink(T("Add new category").ToString(), "Create", null, new { @class = "button primaryAction" })</div>
+        <br/>
+        <br/>
+        <br/>
+        @if (Model.Categories.Any()) {
+            <table class="items" id="category">
+                <thead>
+                    <tr>                
+                        <th class="title-list-small">@T("Title")</th>
+                        <th>@T("Change Order")</th>
+                        <th>@T("Created")</th>                 
+                        <th>@T("Modified")</th>                 
+                        <th>@T("Owner")</th>                 
+                        <th>@T("Actions")</th>
+                    </tr>
+                </thead>
+                <tbody>                    
+                    @foreach (var categoryViewModel in Model.Categories)
+                    {
+                        <tr id="ids[?]_@categoryViewModel.Id">                   
+                            <td>
+                                @Html.ActionLink(categoryViewModel.Name, "Edit", new {id = categoryViewModel.Id})                        
+                            </td>  
+                            <td>
+                                <div class="category-order">
+                                    <a title="Move up" href="@Url.Action("ChangePosition", new {id = categoryViewModel.Id, direction = DigitalPublishingPlatform.Models.Direction.Up, returnUrl = this.ReturnUrl()})">
+                                        <img src="@Url.Content("~/Modules/DigitalPublishingPlatform/Content/Images/moveup.gif")" alt="move up" class="move-up"/>
+                                    </a>    
+                                    <a title="Move down" href="@Url.Action("ChangePosition", new {id = categoryViewModel.Id, direction = DigitalPublishingPlatform.Models.Direction.Down, returnUrl = this.ReturnUrl()})">
+                                        <img src="@Url.Content("~/Modules/DigitalPublishingPlatform/Content/Images/movedown.gif")" alt="move down" class="move-down"/>
+                                    </a>    
+                                </div>
+                            </td>
+                            <td>
+                                @categoryViewModel.CreatedUtc
+                            </td>
+                            <td>
+                                @categoryViewModel.ModifiedUtc
+                            </td>
+                            <td>
+                                @categoryViewModel.Owner
+                            </td>                          
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new {id = categoryViewModel.Id})  
+                                @if (categoryViewModel.Published)
+                                {       
+                                    <p>
+                                        <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/online.gif" alt="Online" title="The page is currently online" /> Published | 
+                                        @Html.ActionLink("Unpublish", "Unpublish", "Admin", new {id = categoryViewModel.Id, returnUrl = this.ReturnUrl()}, null)
+                                    </p>    
+                                }else{
+                                    <p>
+                                        <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/offline.gif" alt="Online" title="The page is currently online" /> Not Published | 
+                                        @Html.ActionLink("Publish", "Publish", "Admin", new {id = categoryViewModel.Id, returnUrl = this.ReturnUrl()}, null)
+                                    </p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" id="lastPosition" name="lastPosition" value="@Model.Categories.Count()"/>
+
+            using (Script.Foot())
+            {
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        verifyCategoryOrder();
+                    });
+                </script>
+            }
+        }
+        else
+        {
+            <div class="info message">@T("No categories found.")</div>    
+        }
+    </fieldset>
+}
+ @Display(Model.Pager)

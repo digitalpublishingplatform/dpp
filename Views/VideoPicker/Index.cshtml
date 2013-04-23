@@ -1,0 +1,98 @@
+﻿@model DigitalPublishingPlatform.ViewModels.VideoPickerViewModel
+@{
+    // these need to be in the head because MediaBrowser.js defines a callback that the thumbnail images call when they load,
+    // which could happen as soon as they render. 
+    Style.Require("jQueryUI_Orchard").AtHead();
+    Script.Require("jQueryUI_Tabs").AtHead();
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();
+    Style.Require("PublicationFrameworkAdmin.Style.MediaElement").AtHead();
+    
+    SetMeta("X-UA-Compatible", "IE=edge,chrome=1");
+    Style.Include("~/themes/theadmin/styles/site.css");
+	Style.Include("~/themes/theadmin/styles/ie.css").UseCondition("lte IE 8").SetAttribute("media", "screen, projection");
+	Style.Include("~/themes/theadmin/styles/ie6.css").UseCondition("lte IE 6").SetAttribute("media", "screen, projection");
+	Style.Include("mediapicker.css");
+    Script.Require("PublicationFrameworkAdmin.Script.VideoPicker").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.MediaElement").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.JQueryCopyToClipboard");
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+    Script.Require("jQueryUI").AtFoot();
+}
+<!DOCTYPE html>
+<html lang="en-US" class="digitalpublishingplatform">
+<head>
+    <title>@T("Video Picker")</title>
+    @Display.Metas()
+    @Display.HeadScripts()
+    @Display.HeadLinks()
+    @Display.StyleSheetLinks()
+</head>
+<body id="orchardmediapicker">
+
+    <div id="tabs" class="group ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <div class="ui-widget-header ui-corner-all">
+           <h1>@T("Video Picker")</h1>           
+        </div>  
+        @using(Html.BeginFormAntiForgeryPost())
+        {
+            <fieldset class="find-container">
+                <label for="find">
+                    Find Video:                
+                </label>
+                <div style="width: 90%">                
+                    <input type="text" class="large text" name="find" id="find"/>
+                </div>
+                <div style="width: 10%">
+                    <button class="primaryAction" type="submit">Find</button>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <table class="items">
+            <thead>
+                <tr>
+                    <th></th>                
+                    <th>@T("Title")</th>                                    
+                    <th>@T("Mime")</th>                    
+                    <th>@T("Size")</th>                                        
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var mediaItem in Model.SearchResult) {
+                    <tr>
+                        <td>
+                            @if (mediaItem.HasEncodedMedia) {
+                                <input type="checkbox" class="select-video" value="@mediaItem.Id"/>
+                            }
+                        </td>                                           
+                        <td>
+                            <a href="@Url.Action("PlayVideo", "Admin", new{id = mediaItem.Id})" title="clic to preview '@mediaItem.Title'" class="play-movie" target="_blank">@mediaItem.Title</a>
+                        </td>
+                        <td>
+                            @mediaItem.MimeType
+                        </td>                                 
+                        <td>
+                            @mediaItem.FormattedSize
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>        
+            </fieldset>
+           
+                
+        
+            <fieldset>
+                 @Display(Model.Pager)
+            </fieldset>
+            <fieldset style="text-align: right">
+                <button class="primaryAction" id="insert-video" type="button">Insert</button>
+                <button class="primaryAction close"  type="button">Cancel</button>
+            </fieldset>
+        }
+    </div>
+     <div id="video-container"></div>
+
+@Display.FootScripts()
+</body>
+</html>

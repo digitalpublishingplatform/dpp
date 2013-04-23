@@ -1,0 +1,8 @@
+﻿@{ Layout.Title = T("Edit media").ToString(); }
+@using (Html.BeginFormAntiForgeryPost()) {
+    <fieldset class="mediaupaloader">
+        @Html.ValidationSummary()
+        @Display(Model)
+    </fieldset>    
+}
+

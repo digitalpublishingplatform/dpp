@@ -1,0 +1,23 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@using DigitalPublishingPlatform.Models
+@{
+    ViewBag.Title = "Delete";
+}
+@using (Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        @foreach (Navigation navigation in BreadCrumbs.GetNavigationHierarchy(Request.Url.PathAndQuery, WorkContext))
+        {
+            if(!navigation.Path.IsNullOrEmpty()) {
+                @Html.Link(navigation.Name, navigation.Path) <text>&#62;</text>    
+            }
+            else {
+                @Html.Label(navigation.Name) <text>&#62;</text>    
+            }
+        }
+        @T("Delete")
+
+        <h2>Are you sure you want to delete '@ViewBag.PublicationTitle'?</h2>    
+        <button class="primaryAction" type="submit" name="submit.Yes" value="submit.Yes">Yes</button>
+        <button class="primaryAction" type="submit" name="submit.No" value="submit.No">No</button>
+    </fieldset>
+}

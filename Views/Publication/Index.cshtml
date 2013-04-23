@@ -1,0 +1,75 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@model DigitalPublishingPlatform.ViewModels.PublicationItemListViewModel          
+@{ Layout.Title = T("Publications").ToString(); }
+
+@using(Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <label for="find">
+            Find Publication:                
+        </label>
+        <div style="width: 70%; float:left;">                
+            <input type="text" class="large text" name="find" id="find"/>
+        </div>
+        <div style="float:left;">
+            <button class="primaryAction" type="submit">Find</button>
+        </div>
+        <div class="manage">@Html.ActionLink(T("Add new publication").ToString(), "Create", new { }, new { @class = "button primaryAction" })</div>
+        <br/>
+        <br/>
+        <br/>
+        
+        @if (Model.PublicationItems.Any()) {
+            <table class="items">
+                <thead>
+                    <tr>                
+                        <th class="title-list">@T("Title")</th>   
+                        <th>@T("Created")</th>
+                        <th>@T("Modified")</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var publicationItem in Model.PublicationItems) {
+                        <tr >                   
+                            <td>
+                                @Html.ActionLink(@publicationItem.Title, "Edit", new {id = publicationItem.Id})
+                        
+                            </td>
+                            <td>
+                                @publicationItem.CreatedUtc
+                            </td>
+                            <td>
+                                @publicationItem.ModifiedUtc
+                            </td>
+                            <td>
+                                <p>
+                                    @Html.ActionLink("Edit", "Edit", new {id = publicationItem.Id}) | 
+                                    @Html.ActionLink(T("Delete").ToString(), "Delete", new {id = publicationItem.Id}) |
+                                    @Html.ActionLink(T("Issues").ToString(), "Index", "Issue", new {publicationId = publicationItem.Id}, null) |
+                                    @Html.ActionLink(T("Categories").ToString(), "Index", "Category", new {publicationId = publicationItem.Id}, null)
+                                    @if (publicationItem.Published) {
+                                        <p>
+                                            <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/online.gif" alt="Online" title="The page is currently online" /> Published | 
+                                            @Html.ActionLink("Unpublish", "Unpublish", "Admin", new {id = publicationItem.Id, returnUrl = this.ReturnUrl()}, null)
+                                        </p>
+                                    }
+                                    else {
+                                        <p>
+                                            <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/offline.gif" alt="Online" title="The page is currently online" /> Not Published | 
+                                            @Html.ActionLink("Publish", "Publish", "Admin", new {id = publicationItem.Id, returnUrl = this.ReturnUrl()}, null)
+                                        </p>
+                                    }
+                                </p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="info message">@T("No publications found.")</div>    
+        }
+    </fieldset>
+}
+ @Display(Model.Pager)

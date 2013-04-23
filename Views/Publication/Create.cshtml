@@ -1,0 +1,23 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@using DigitalPublishingPlatform.Models
+@{ Layout.Title = T("Create new publication").ToString(); }
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+    <fieldset>
+        @foreach (Navigation navigation in BreadCrumbs.GetNavigationHierarchy(Request.Url.PathAndQuery, WorkContext))
+        {
+            if(!navigation.Path.IsNullOrEmpty()) {
+                @Html.Link(navigation.Name, navigation.Path) <text>&#62;</text>    
+            }
+            else {
+                @Html.Label(navigation.Name) <text>&#62;</text>    
+            }
+        }
+        @T("Create")
+               
+        @Display(Model)
+    </fieldset>
+    
+}
+

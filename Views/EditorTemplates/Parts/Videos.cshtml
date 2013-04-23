@@ -1,0 +1,38 @@
+﻿@model DigitalPublishingPlatform.ViewModels.EditVideosViewModel
+@{
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();
+    Style.Require("PublicationFrameworkAdmin.Style.MediaElement").AtHead();
+    Script.Require("PublicationFrameworkAdmin.Script.VideoPicker").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.MediaElement").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.JQueryCopyToClipboard");
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+    Script.Require("jQueryUI").AtFoot();
+}
+<h3>@T("Video Set")</h3>
+<fieldset>
+    <button class="primaryAction" id="add-video">Add new video</button>
+    <div id="article-video-container">
+        <ul>            
+            @{
+                var i = 0;        
+                foreach (var video in Model.Videos) {
+                    <li class="article-video-preview">                        
+                        <input type="hidden" value="@video.Id" name="@Html.FieldNameFor(m => m.Ids[i])"/>
+                        
+                        <a href="@Url.Action("PlayVideo","Admin", new {id = video.Id})" target="_blank" class="play-movie">
+                            <span></span>
+                            <img src="@(String.IsNullOrEmpty(video.DefaultThumbnailUrl) ? Url.Content("~/Modules/DigitalPublishingPlatform/styles/images/blank.png") : video.DefaultThumbnailUrl)" />
+                        </a>
+                        <h2>@video.Title</h2>
+                        <p style="text-align: right">
+                            <a href="#" class="remove">remove</a>                            
+                        </p>                        
+                    </li>
+                    i++;
+                }
+            }
+        </ul>
+    </div>
+</fieldset>
+<div id="video-container"></div>
+<br/>

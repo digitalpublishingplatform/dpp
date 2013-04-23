@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9491D30B-340E-4666-AD3C-4125786AD6B1}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DigitalPublishingPlatform</RootNamespace>
+    <AssemblyName>DigitalPublishingPlatform</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.Data.Edm.5.1.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.Data.OData.5.1.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.Data.Services.Client.5.1.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.TransientFaultHandling.Core, Version=5.1.1209.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4\Microsoft.Practices.TransientFaultHandling.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.7.0.3\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\windowsazure.mediaservices.2.0.1.1\lib\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\WindowsAzure.Storage.1.7.0.0\lib\net35-full\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.5.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Orchard.MultiTenancy\Bin\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Services.Client">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\System.Spatial.5.1.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Entity">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ImagePickerController.cs" />
+    <Compile Include="Drivers\ImageSetDriver.cs" />
+    <Compile Include="Handlers\ImageSetHandler.cs" />
+    <Compile Include="Helpers\ContentExtensions.cs" />
+    <Compile Include="Helpers\BreadCrumbs.cs" />
+    <Compile Include="Models\Navigation.cs" />
+    <Compile Include="Models\ImageSetItemRecord.cs" />
+    <Compile Include="Models\Direction.cs" />
+    <Compile Include="Drivers\CategoriesDriver.cs" />
+    <Compile Include="Drivers\CategoryDriver.cs" />
+    <Compile Include="Handlers\CategoryHandler.cs" />
+    <Compile Include="Models\ArticleCategoryRecord.cs" />
+    <Compile Include="Models\CategoriesPart.cs" />
+    <Compile Include="Models\CategoryPart.cs" />
+    <Compile Include="Models\CategoryRecord.cs" />
+    <Compile Include="Models\ImageSetRecord.cs" />
+    <Compile Include="Models\ImageSetPart.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\IImageService.cs" />
+    <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\ICategoryService.cs" />
+    <Compile Include="ViewModels\ImageSetViewModel.cs" />
+    <Compile Include="ViewModels\MainIssueFrontViewModel.cs" />
+    <Compile Include="ViewModels\CategoriesArticlesViewModel.cs" />
+    <Compile Include="ViewModels\CategoryArticleViewModel.cs" />
+    <Compile Include="ViewModels\Category\CategoryItemListViewModel.cs" />
+    <Compile Include="ViewModels\Category\CategoryLightViewModel.cs" />
+    <Compile Include="ViewModels\Category\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\IssueFrontViewModel.cs" />
+    <Compile Include="ViewModels\EditCategoriesViewModel.cs" />
+    <Compile Include="ViewModels\EditVideosViewModel.cs" />
+    <Compile Include="ViewModels\TagArticlesViewModel.cs" />
+    <Compile Include="Controllers\VideoPickerController.cs" />
+    <Compile Include="Drivers\ImageDriver.cs" />
+    <Compile Include="Handlers\ArticleHandler.cs" />
+    <Compile Include="Handlers\ImageHandler.cs" />
+    <Compile Include="Helpers\WebViewPageExtensions.cs" />
+    <Compile Include="Models\ArticleRecord.cs" />
+    <Compile Include="Models\ImagePart.cs" />
+    <Compile Include="Models\ImageRecord.cs" />
+    <Compile Include="ViewModels\Api\EncodedVideoViewModel.cs" />
+    <Compile Include="ViewModels\VideoPickerViewModel.cs" />
+    <Compile Include="ViewModels\Api\VideoViewModel.cs" />
+    <Compile Include="ViewModels\ArticleViewModel.cs" />
+    <Compile Include="Controllers\IssueController.cs" />
+    <Compile Include="Controllers\ApiPublicationController.cs" />
+    <Compile Include="Controllers\PublicationController.cs" />
+    <Compile Include="Drivers\ArticleDriver.cs" />
+    <Compile Include="Drivers\IssueDriver.cs" />
+    <Compile Include="Drivers\MediaItemDriver.cs" />
+    <Compile Include="Drivers\PublicationFrameworkSettingPartDriver.cs" />
+    <Compile Include="Drivers\PublicationDriver.cs" />
+    <Compile Include="Drivers\VideoDriver.cs" />
+    <Compile Include="Handlers\VideoHandler.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handlers\PublicationFrameworkSettingPartHandler.cs" />
+    <Compile Include="Handlers\MediaItemHandler.cs" />
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\NumberExtensions.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="MediaServiceUpdater.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\VideoMediaItemRecord.cs" />
+    <Compile Include="Models\VideoPart.cs" />
+    <Compile Include="Models\VideoRecord.cs" />
+    <Compile Include="Models\ArticlePart.cs" />
+    <Compile Include="Models\EncodedMediaRecord.cs" />
+    <Compile Include="Models\IssuePart.cs" />
+    <Compile Include="Models\EncodingPresetRecord.cs" />
+    <Compile Include="Models\MediaDefinition.cs" />
+    <Compile Include="Models\MediaTarget.cs" />
+    <Compile Include="Models\ThumbnailRecord.cs" />
+    <Compile Include="RouteConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\IVideoService.cs" />
+    <Compile Include="Services\VideoService.cs" />
+    <Compile Include="SweepGenerator.cs" />
+    <Compile Include="ViewModels\Api\IssueViewModel.cs" />
+    <Compile Include="ViewModels\Api\PublicationViewModel.cs" />
+    <Compile Include="ViewModels\EncodingPresetViewModel.cs" />
+    <Compile Include="Models\PublicationPart.cs" />
+    <Compile Include="ViewModels\EncodingViewModel.cs" />
+    <Compile Include="ViewModels\EncodedMediaViewModel.cs" />
+    <Compile Include="Models\EncodingPreset.cs" />
+    <Compile Include="Models\MediaItemRecord.cs" />
+    <Compile Include="Models\MediaItemPart.cs" />
+    <Compile Include="Models\MediaType.cs" />
+    <Compile Include="Models\PublicationFrameworkSettingPart.cs" />
+    <Compile Include="Models\PublicationFrameworkSettingPartRecord.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Services\ArticleService.cs" />
+    <Compile Include="Services\IArticleService.cs" />
+    <Compile Include="Services\BlobStorageService.cs" />
+    <Compile Include="Services\BlobStorageWrapper.cs" />
+    <Compile Include="Services\Config.cs" />
+    <Compile Include="Services\IBlobStorageService.cs" />
+    <Compile Include="Services\IBlobStorageWrapper.cs" />
+    <Compile Include="Services\IConfig.cs" />
+    <Compile Include="Services\IMediaItemService.cs" />
+    <Compile Include="Services\IIssueService.cs" />
+    <Compile Include="Services\IPublicationService.cs" />
+    <Compile Include="Services\MediaItemService.cs" />
+    <Compile Include="Services\IssueService.cs" />
+    <Compile Include="Services\PublicationService.cs" />
+    <Compile Include="ViewModels\ArticleItemListViewModel.cs" />
+    <Compile Include="ViewModels\ArticleItemViewModel.cs" />
+    <Compile Include="ViewModels\FileInfoViewModel.cs" />
+    <Compile Include="ViewModels\IssueItemListViewModel.cs" />
+    <Compile Include="ViewModels\IssueItemViewModel.cs" />
+    <Compile Include="ViewModels\PublicationItemListViewModel.cs" />
+    <Compile Include="ViewModels\PublicationItemViewModel.cs" />
+    <Compile Include="ViewModels\VideoPlayerViewModel.cs" />
+    <Content Include="Content\Images\movedown.gif" />
+    <Content Include="Content\Images\moveup.gif" />
+    <Content Include="Content\plupload\plupload.flash.swf" />
+    <Content Include="Content\plupload\plupload.silverlight.xap" />
+    <Content Include="Content\SmoothStreamingPlayer\SmoothStreamingPlayer.xap" />
+    <Content Include="Content\Web.config" />
+    <Content Include="Content\SmoothStreamingPlayer\Smooth Streaming Player-ReadMe.doc" />
+    <None Include="Placement.info" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Services\IMediaServicesService.cs" />
+    <Compile Include="Services\MediaServicesService.cs" />
+    <Compile Include="ViewModels\AzureUploadResultViewModel.cs" />
+    <Compile Include="ViewModels\EncodedListViewModel.cs" />
+    <Compile Include="ViewModels\MediaItemViewModel.cs" />
+    <Compile Include="ViewModels\MediaItemListViewModel.cs" />
+    <Content Include="Content\OsmfPlugin\crossdomain.xml" />
+    <Content Include="Content\OsmfPlugin\MSAdaptiveStreamingPlugin-v1.0.1-osmf2.0.swf" />
+    <Content Include="Content\OsmfPlugin\StrobeMediaPlayback.swf" />
+    <Content Include="Content\ZeroClipboard.swf" />
+    <Content Include="Scripts\jquery.copytoclipboard.js" />
+    <Content Include="Scripts\mediaelement\mediaelement-and-player.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\videopicker.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\blank.png" />
+    <Content Include="Styles\images\complete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\copy-clicked.png" />
+    <Content Include="Styles\images\copy.png" />
+    <Content Include="Styles\images\error.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\logo-html5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\logo-windows.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\next-btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\play-btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\prev-btn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\processing.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\thumbnail-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\uploading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\plupload\plupload.full.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\script.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\check.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\video-preview.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\bigplay.fw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\bigplay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\bigplay.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\controls-ted.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\controls-wmp-bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\controls-wmp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\controls.fw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\controls.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\controls.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\loading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\mediaelementplayer.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\mediaelement\mejs-skins.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\AddNewEncoding.cshtml" />
+    <Content Include="Scripts\mediaelement\flashmediaelement.swf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\mediaelement\silverlightmediaelement.xap">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\EditorTemplates\Parts\Share.Settings.cshtml" />
+    <Content Include="Views\Admin\EncodedList.cshtml" />
+    <Content Include="Views\Publication\Create.cshtml" />
+    <Content Include="Views\Publication\Index.cshtml" />
+    <Content Include="Views\Publication\Edit.cshtml" />
+    <Content Include="Views\Article\Create.cshtml" />
+    <Content Include="Views\Article\Index.cshtml" />
+    <Content Include="Views\Article\Edit.cshtml" />
+    <Content Include="Views\Issue\Create.cshtml" />
+    <Content Include="Views\Issue\Index.cshtml" />
+    <Content Include="Views\Issue\Edit.cshtml" />
+    <Content Include="Views\Admin\_VideoPlayer.cshtml" />
+    <Content Include="Views\Admin\PlayVideo.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Admin\_ImageList.cshtml" />
+    <Content Include="Views\Admin\ImageList.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Videos.cshtml" />
+    <Content Include="Views\VideoPicker\Index.cshtml" />
+    <Content Include="Views\VideoPicker\_VideoInfo.cshtml" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Views\EditorTemplates\Parts\Image.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Article.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Category.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Categories.cshtml" />
+    <Content Include="Views\Publication\Delete.cshtml" />
+    <Content Include="Views\Issue\Delete.cshtml" />
+    <Content Include="Views\Article\Delete.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Issue\IssueStructure.cshtml" />
+    <Content Include="Views\Admin\Help.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\ImageSet.cshtml" />
+    <Content Include="Views\ImagePicker\_ImageInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Content Include="Global.asax" />
+    <Content Include="Module.txt" />
+    <Content Include="Styles\menu.publicationframework-admin.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\images\menu.imagegallery.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839c-39fc-4ceb-a5af-89ca7e87119f}</Project>
+      <Name>Orchard.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Localization\Orchard.Localization.csproj">
+      <Project>{fbc8b571-ed50-49d8-8d9d-64ab7454a0d6}</Project>
+      <Name>Orchard.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Tags\Orchard.Tags.csproj">
+      <Project>{5d0f00f0-26c9-4785-ad61-b85710c60eb0}</Project>
+      <Name>Orchard.Tags</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\MediaItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\DisplayTemplates\Parts\MediaItem.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>22196</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5446/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

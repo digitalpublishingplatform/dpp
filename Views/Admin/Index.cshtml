@@ -1,0 +1,85 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@using DigitalPublishingPlatform.Models
+@model DigitalPublishingPlatform.ViewModels.MediaItemListViewModel          
+@{
+    Layout.Title = T("Media Service Gallery").ToString();
+    Style.Require("PublicationFrameworkAdmin.Style.MediaElement").AtHead();
+    Style.Require("jQueryUI_Orchard");
+    
+    Script.Require("PublicationFrameworkAdmin.Script.MediaElement").AtFoot();    
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script.JQueryCopyToClipboard");
+    Script.Require("jQueryUI").AtFoot();
+}
+
+
+@using(Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <label for="find">
+            Find Media:                
+        </label>
+        <div style="width: 70%; float: left;">                
+            <input type="text" class="large text" name="find" id="find"/>
+        </div>
+        <div style="float: left;">
+            <button class="primaryAction" type="submit">Find</button>
+        </div>      
+        <div class="manage">@Html.ActionLink(T("Add new media").ToString(), "Create", new {}, new {@class = "button primaryAction"})</div>
+    </fieldset>
+  
+        <fieldset class="video-gallery">     
+        @if (Model.MediaItems.Any()) {     
+            foreach (var mediaItem in Model.MediaItems) {
+                <div class="video-item">                   
+                    <div class="preview">
+                        <a href="@Url.Action("PlayVideo", "Admin", new {id = mediaItem.Id})" title="clic to preview '@mediaItem.Filename'" class="play-movie" target="_blank">
+                            <span>
+                                    
+                            </span>
+                            <img src="@(mediaItem.DefaultThumbnailUrl.IsNullOrEmpty() ? Url.Content("~/Modules/DigitalPublishingPlatform/styles/images/blank.png") : mediaItem.DefaultThumbnailUrl)" />
+                        </a>
+                    </div>
+                    <div class="video-info">
+                        @Html.ActionLink(@mediaItem.Title, "Edit", new {id = mediaItem.Id}, new {@class = "title"})
+                        <br/>
+                        last modification: @mediaItem.ModifiedLongFormat by @mediaItem.Owner<br/>
+                        @mediaItem.MimeType<br/>
+                        @mediaItem.FormattedSize<br/>                            
+                            
+                    </div>
+                    <div class="video-actions">
+                        @if (mediaItem.Type == MediaType.Video) {
+                            @Html.ActionLink("Encode", "AddNewEncoding", new {id = mediaItem.Id})
+                            <text> |</text>
+                        }                                                                                                       
+                        @Html.ActionLink("Edit", "Edit", new {id = mediaItem.Id}) | 
+                        @Html.ActionLink(T("Delete").ToString(), "Delete", new {id = mediaItem.Id})
+                        <br/>
+                        @Html.ActionLink("Encoded List", "EncodedList", new {id = mediaItem.Id})  
+                        @if (mediaItem.Published) {
+                            <p>
+                                <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/online.gif" alt="Online" title="The page is currently online" /> Published
+                            </p>
+                            @Html.ActionLink("Unpublish", "Unpublish", "Admin", new {id = mediaItem.Id, returnUrl = this.ReturnUrl()}, null)
+                        }
+                        else {
+                            <p>
+                                <img class="icon" src="/Modules/Orchard.PublishLater/Content/Admin/images/offline.gif" alt="Online" title="The page is currently online" />Not Published
+                            </p>
+                            @Html.ActionLink("Publish", "Publish", "Admin", new {id = mediaItem.Id, returnUrl = this.ReturnUrl()}, null)
+                        }
+                    </div>                                                      
+                    <div class="ui-helper-clearfix"></div>
+                </div>
+            }
+    }
+    else
+    {
+        <div class="info message">@T("No media found.")</div>    
+    }
+    </fieldset>
+    <div id="video-container"></div>
+}
+
+
+ @Display(Model.Pager)

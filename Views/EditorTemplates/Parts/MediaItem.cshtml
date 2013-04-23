@@ -1,0 +1,147 @@
+﻿@using DigitalPublishingPlatform.Helpers
+@model DigitalPublishingPlatform.Models.MediaItemPart
+
+@{
+    Style.Require("PublicationFrameworkAdmin.Style").AtHead();    
+    Script.Require("PublicationFrameworkAdmin.Script.Plupload").AtFoot();
+    Script.Require("PublicationFrameworkAdmin.Script").AtFoot();    
+}
+<fieldset>
+    <p>
+        <label >Media file</label>        
+    </p>        
+    <div id="container">
+        @if (String.IsNullOrEmpty(Model.AssetId)) {            
+            <button id="pickfiles2" data-url="@Url.Action("Upload", "Admin")">Browse files</button>                             
+        }
+        <div id="progress-bar">
+            <div class="rightcontent">
+                <div id="progress-value" class="component" style="text-align: right">0%</div>                 
+                <div class="progress rounded component">
+                    <div class="progress-background rounded"></div>
+                </div>  
+                <div id="general-progress" class="component">&nbsp;</div>
+                <button id="uploadfiles">Upload</button>                
+            </div>
+            <div class="leftcontent">
+                <div id="filelist">
+                    @if (!String.IsNullOrEmpty(Model.Filename)) {
+                        @Model.Filename <text>(</text>@Model.Size.ToReadeableSize()<text>)</text>
+                    }
+                    else {
+                        <text>&nbsp;</text>    
+                    }
+                    
+                </div>
+            </div>
+        </div>        
+
+        <input id="token" name="@Html.FieldNameFor(model => model.FileToken)" type="hidden" value="@Model.FileToken"/>        
+        @Html.HiddenFor(model => model.AssetId)
+    </div>
+</fieldset>
+@using (Script.Head()) {
+    <script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>
+}
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var edited = false;
+            
+            $('[name^="submit"]').bind("click", function() {
+                edited = false;
+            });
+
+            $(window).bind("beforeunload", function(event) {
+                if (edited) {
+                    return "If you leave this page the changes will be lost.";
+                }
+            });
+
+            var $pickfiles = $("#pickfiles2");
+            if ($pickfiles.length > 0) {
+                var uploadUrl = $pickfiles.data("url");
+                /*Read: http://msdn.microsoft.com/en-us/library/windowsazure/hh973634.aspx ("Video File Formats" paragraph)*/
+                var allowedVideoExt = "3gp,3g2,3gp2,asf,mts,m2ts,avi,mod,dv,ts,vob,xesc,mp4,mpeg,mpg,m2v,ismv,wmv";
+                var filterVideoTitle = "Video Files (*." + allowedVideoExt.replace(/,/g, "; *.") + ")";
+
+                var uploader = new plupload.Uploader({
+                    runtimes: 'gears,html5,silverlight,flash,browserplus',
+                    browse_button: 'pickfiles2',
+                    container: 'container',
+                    multi_selection: false,
+                    max_file_size: '100gb',
+                    chunk_size: '1mb',
+                    url: uploadUrl,
+                    flash_swf_url: '@Url.Content("~/Modules/DigitalPublishingPlatform/content/plupload/plupload.flash.swf")',
+                    silverlight_xap_url: '@Url.Content("~/Modules/DigitalPublishingPlatform/content/plupload/plupload.silverlight.xap")',
+                    multipart_params: {
+                        '__RequestVerificationToken': $('[name=__RequestVerificationToken]').val(),
+                        'token': $("#token").val()
+                    },
+                    filters: [{ title: filterVideoTitle, extensions: allowedVideoExt }]
+                });
+                uploader.bind('Init', function(up, params) {
+                    //$('#filelist').html("<div>Current runtime: " + params.runtime + "</div>");
+                });
+
+                //click event attached to 'uploadfiles' button
+                $('#uploadfiles').bind("click", function(e) {
+                    edited = true;
+                    $(this).hide();
+                    $("#progress-bar .component").show();
+                    $("#general-progress").html("uploading...");
+                    $("#general-progress").removeAttr("class");
+                    $("#general-progress").addClass("uploading");
+                    $(":submit").attr('disabled', 'disabled').addClass("disabled");
+                    uploader.refresh();
+                    uploader.start();
+                    e.preventDefault();
+                    //return false;
+                });
+                //init uploader
+                uploader.init();
+                //when file added
+                uploader.bind('FilesAdded', function(up, files) {
+                    edited = true;
+                    $("#uploadfiles").show();
+                    $.each(files, function(i, file) {
+                        $('#filelist').html(file.name + ' (' + plupload.formatSize(file.size) + ')');
+                        $(document).trigger("setTitle", { title: file.name });
+                    });
+                    $("#progress-bar .progress-background").css("width", "0");
+                    $("#progress-value").html("0%");
+                    up.refresh();
+                });
+                //upload progress event
+                uploader.bind('UploadProgress', function(up, file) {
+                    $("#progress-bar .progress-background").css("width", file.percent + "%");
+                    $("#progress-value").html(file.percent + "%  ");
+                    if (file.percent >= 100) {
+                        $("#general-progress").html("processing...");
+                        $("#general-progress").removeAttr("class");
+                        $("#general-progress").addClass("processing");
+                    }
+                });
+                //error ocurred
+                uploader.bind('Error', function(up, err) {
+                    $('#filelist').append("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>");
+                    up.refresh();
+                    $("#general-progress").html("error");
+                    $("#general-progress").removeAttr("class");
+                    $("#general-progress").addClass("error");
+                });
+                //upload finished
+                uploader.bind('UploadComplete', function(up, file) {
+                    $('#' + file.id + " b").html("100%");
+                    $("#general-progress").html("complete");
+                    $("#general-progress").removeAttr("class");
+                    $("#general-progress").addClass("complete");
+                    $(":submit").removeAttr('disabled').removeClass("disabled");
+                });
+                //uploader.refresh();
+            }
+        });
+    </script>
+}

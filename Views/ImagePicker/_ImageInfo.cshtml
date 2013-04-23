@@ -1,0 +1,13 @@
+﻿@model  DigitalPublishingPlatform.ViewModels.ImageSetViewModel
+
+@{
+    for (var i = 0; i < Model.Urls.Count(); i++) {
+        <li class="article-image-preview">            
+            <input type="hidden" value="@Model.Urls[i]" name="ImageSet.@Html.FieldNameFor(m => m.Urls[i])"/>
+            <img src="@Html.ValueFor(m => m.Urls[i])" id="img-preview" alt="ImageSetItem" />   
+            <p style="text-align: right">
+                            <a href="#" class="remove">remove</a>                            
+                    </p>         
+        </li>
+    }
+}

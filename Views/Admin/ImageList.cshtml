@@ -1,0 +1,5 @@
+﻿@model Tuple<string, List<string>, int>
+@{
+    ViewBag.Title = "Image List for " + Model.Item1;
+}
+@Html.Partial("_ImageList")
