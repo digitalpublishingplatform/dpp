@@ -118,7 +118,7 @@ namespace DigitalPublishingPlatform.Controllers
                     ImageUrl = a.Url,
                     Author = a.Author,
                     Videos = _videoService.GetVideoList(a.Id),
-                    Tags = a.Categories,
+                    Categories = a.Categories,
                     Images = _imageService.GetImageUrlListByArticle(a.Id),
                 });            
         }
@@ -142,7 +142,6 @@ namespace DigitalPublishingPlatform.Controllers
         [HttpGet, HttpPost]
         public IEnumerable<ArticleViewModel> ArticlesByCategoryNameAndIssueId(int id, string categoryName)
         {
-            
             return Services.ContentManager
                             .Query<ArticlePart>()
                             .List()
@@ -161,7 +160,7 @@ namespace DigitalPublishingPlatform.Controllers
                                 Author = a.Author,
                                 Videos = _videoService.GetVideoList(a.Id),
                                 Images = _imageService.GetImageUrlListByArticle(a.Id),
-                                Tags = a.Categories,
+                                Categories = a.Categories,
                                 Position = _categoryService.GetPositionByCategoryArticle(categoryName, a.Id)
                             })
                             .OrderBy(a => a.Position);
@@ -174,8 +173,8 @@ namespace DigitalPublishingPlatform.Controllers
         /// <param name="id">issue id</param>
         /// <returns>list of cat</returns>
         [HttpGet, HttpPost]
-        public IEnumerable<TagArticlesViewModel> CategoryAndArticlesByIssueId(int id) {
-            return _issueService.IssueFront(id).TagsAndArticles;            
+        public IEnumerable<CategoryArticlesViewModel> CategoryAndArticlesByIssueId(int id) {
+            return _issueService.IssueFront(id).CategoriesAndArticles;            
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace DigitalPublishingPlatform.ViewModels {
         public string Author { set; get; }
         public string ImageUrl { set; get; }
         public IEnumerable<VideoViewModel> Videos {set; get;}        
-        public IEnumerable<string> Tags { set; get; }
+        public IEnumerable<string> Categories { set; get; }
         public List<string> Images { set; get; }
         public int Position { set; get; }
     }

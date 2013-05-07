@@ -20,25 +20,24 @@ namespace DigitalPublishingPlatform.Services
     public class IssueService : IIssueService
     {
         private readonly IOrchardServices _orchardServices;
-        private readonly IContentManager _contentManager;
         private readonly IShapeFactory _shapeFactory;
         private readonly ISiteService _siteService;
         private readonly IRepository<ArticleCategoryRecord> _articleCategoryRepository;
         private readonly IVideoService _videoService;
+        private readonly IImageService _imageService;
 
         public IssueService(IOrchardServices orchardServices, 
-            IContentManager contentManager, 
             IShapeFactory shapeFactory, 
             ISiteService siteService,
             IRepository<ArticleCategoryRecord> articleCategoryRepository,
-            IVideoService videoService)
+            IVideoService videoService, IImageService imageService)
         {
             _orchardServices = orchardServices;
-            _contentManager = contentManager;
             _shapeFactory = shapeFactory;
             _siteService = siteService;
             _articleCategoryRepository = articleCategoryRepository;
             _videoService = videoService;
+            _imageService = imageService;
         }
 
         public IssueItemListViewModel GetAllItems(IssueItemListViewModel model, int publicationId, PagerParameters pagerParameters) {
@@ -113,12 +112,12 @@ namespace DigitalPublishingPlatform.Services
 
             var categoryNames = articleCategories.Select(ac => ac.CategoryRecord.Name).ToList().Distinct();
 
-            var result = new List<TagArticlesViewModel>();
+            var result = new List<CategoryArticlesViewModel>();
             foreach (var categoryName in categoryNames)
             {
-                var tagArticle = new TagArticlesViewModel
+                var tagArticle = new CategoryArticlesViewModel
                 {
-                    Tag = categoryName
+                    Category = categoryName
                 };
                 var newArticleList = new List<ArticleViewModel>();
                 var articleCategoriesByCategoryName = articleCategories.Where(ac => ac.CategoryRecord.Name == categoryName).OrderBy(ac => ac.CategoryDisplayOrder);
@@ -138,7 +137,8 @@ namespace DigitalPublishingPlatform.Services
                             ImageUrl = article.Url,
                             Author = article.Author,
                             Videos = _videoService.GetVideoList(article.Id),
-                            Tags = article.Categories
+                            Categories = article.Categories,
+                            Images = _imageService.GetImageUrlListByArticle(article.Id)
                         });
                     }
                 }
@@ -160,9 +160,10 @@ namespace DigitalPublishingPlatform.Services
                     ImageUrl = mainArticle.Url,
                     Author = mainArticle.Author,
                     Videos = _videoService.GetVideoList(mainArticle.Id),
-                    Tags = mainArticle.Categories
+                    Categories = mainArticle.Categories,
+                    Images = _imageService.GetImageUrlListByArticle(mainArticle.Id)
                 } : null,
-                TagsAndArticles = result
+                CategoriesAndArticles = result
             };
         }
     }
