@@ -69,7 +69,7 @@ namespace DigitalPublishingPlatform.Controllers
                                  .OrderByDescending(pp => pp.PublishedUtc);
             
             var publicationList = All().ToList();
-            foreach (var issue in issues) {
+            foreach (var issue in issues.Where(i => i.PublicationPart != null)) {
                 var publicationViewModel = publicationList.FirstOrDefault(p => p.Id == issue.PublicationPart.Id);
                 if (publicationViewModel == null) {
                     publicationViewModel = new PublicationViewModel {
